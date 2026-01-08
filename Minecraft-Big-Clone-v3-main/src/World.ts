@@ -15,6 +15,19 @@ export const BLOCK = {
   PLANKS: 7,
   STICK: 8,
   CRAFTING_TABLE: 9,
+  // New Ores
+  COAL_ORE: 10,
+  COPPER_ORE: 11,
+  IRON_ORE: 12,
+  DIAMOND_ORE: 13,
+  REDSTONE_ORE: 14,
+  LAPIS_ORE: 15,
+  // New Blocks
+  COPPER_BLOCK: 16,
+  IRON_BLOCK: 17,
+  DIAMOND_BLOCK: 18,
+  COAL_BLOCK: 19,
+  // Tools
   WOODEN_SWORD: 20,
   STONE_SWORD: 21,
   WOODEN_PICKAXE: 22,
@@ -22,7 +35,40 @@ export const BLOCK = {
   WOODEN_AXE: 24,
   STONE_AXE: 25,
   WOODEN_SHOVEL: 26,
-  STONE_SHOVEL: 27
+  STONE_SHOVEL: 27,
+  // New Tools - Copper
+  COPPER_SWORD: 28,
+  COPPER_PICKAXE: 29,
+  COPPER_AXE: 30,
+  COPPER_SHOVEL: 31,
+  COPPER_HOE: 32,
+  // New Tools - Iron
+  IRON_SWORD: 33,
+  IRON_PICKAXE: 34,
+  IRON_AXE: 35,
+  IRON_SHOVEL: 36,
+  IRON_HOE: 37,
+  // New Tools - Diamond
+  DIAMOND_SWORD: 38,
+  DIAMOND_PICKAXE: 39,
+  DIAMOND_AXE: 40,
+  DIAMOND_SHOVEL: 41,
+  DIAMOND_HOE: 42,
+  // New Blocks
+  CHEST: 43,
+  FURNACE: 44,
+  LADDER: 45,
+  COBBLESTONE: 46,
+  SCAFFOLDING: 47,
+  // New Materials
+  COPPER_INGOT: 48,
+  IRON_INGOT: 49,
+  DIAMOND: 50,
+  COAL: 51,
+  REDSTONE: 52,
+  LAPIS_LAZULI: 53,
+  // Scissors
+  SCISSORS: 54
 };
 
 type Chunk = {
@@ -583,11 +629,60 @@ export class World {
       }
     }
 
+    // 3. Generate Ores (Third Pass)
+    for (let x = 0; x < this.chunkSize; x++) {
+      for (let z = 0; z < this.chunkSize; z++) {
+        // Generate ores in stone layers (not at surface)
+        for (let y = 1; y < 20; y++) { // Ores typically spawn below y=20
+          const index = this.getBlockIndex(x, y, z);
+          if (data[index] === BLOCK.STONE) {
+            const oreRnd = Math.random();
+            
+            // Coal Ore (most common, 5% chance)
+            if (oreRnd < 0.05) {
+              data[index] = BLOCK.COAL_ORE;
+            }
+            // Iron Ore (3% chance)
+            else if (oreRnd < 0.08) {
+              data[index] = BLOCK.IRON_ORE;
+            }
+            // Copper Ore (2.5% chance)
+            else if (oreRnd < 0.105) {
+              data[index] = BLOCK.COPPER_ORE;
+            }
+            // Diamond Ore (rare, 0.5% chance)
+            else if (oreRnd < 0.11) {
+              data[index] = BLOCK.DIAMOND_ORE;
+            }
+            // Redstone Ore (1% chance)
+            else if (oreRnd < 0.12) {
+              data[index] = BLOCK.REDSTONE_ORE;
+            }
+            // Lapis Ore (0.8% chance)
+            else if (oreRnd < 0.128) {
+              data[index] = BLOCK.LAPIS_ORE;
+            }
+          }
+        }
+      }
+    }
+
+    // 4. Generate Caves and Mineshafts (Fourth Pass)
+    // Generate caves with 5x5 tunnels
+    if (Math.random() < 0.3) { // 30% chance to generate a cave system
+      this.generateCaveSystem(data, cx, cz);
+      
+      // Also have a chance to generate an abandoned mineshaft
+      if (Math.random() < 0.3) { // 30% chance of mineshaft when caves exist
+        this.generateMineshaft(data, cx, cz);
+      }
+    }
+
     // Save to Global Store
     this.chunksData.set(key, data);
     this.dirtyChunks.add(key); // New chunk = needs save
 
-    // 3. Generate Mesh
+    // 5. Generate Mesh
     this.buildChunkMesh(cx, cz, data);
   }
 
@@ -598,6 +693,135 @@ export class World {
       const mesh = this.generateChunkMesh(data, cx, cz);
       this.scene.add(mesh);
       this.chunks.set(key, { mesh });
+  }
+
+  private generateCaveSystem(data: Uint8Array, cx: number, cz: number) {
+    const startX = cx * this.chunkSize;
+    const startZ = cz * this.chunkSize;
+    
+    // Generate multiple cave systems per chunk
+    const numCaves = Math.floor(Math.random() * 3) + 1; // 1-3 caves per chunk
+    
+    for (let i = 0; i < numCaves; i++) {
+      // Random starting position within chunk
+      let caveX = Math.floor(Math.random() * this.chunkSize);
+      let caveY = Math.floor(Math.random() * 15) + 5; // Between Y=5 and Y=20
+      let caveZ = Math.floor(Math.random() * this.chunkSize);
+      
+      // Make sure we start in a stone block
+      const startIndex = this.getBlockIndex(caveX, caveY, caveZ);
+      if (data[startIndex] !== BLOCK.STONE) continue;
+      
+      // Create tunnel path
+      const tunnelLength = Math.floor(Math.random() * 20) + 10; // 10-30 blocks long
+      let directionX = Math.random() * 2 - 1; // Random direction (-1 to 1)
+      let directionY = (Math.random() * 0.4) - 0.2; // Mostly horizontal, slight vertical
+      let directionZ = Math.random() * 2 - 1;
+      
+      // Normalize direction
+      const length = Math.sqrt(directionX * directionX + directionY * directionY + directionZ * directionZ);
+      if (length > 0) {
+        directionX /= length;
+        directionY /= length;
+        directionZ /= length;
+      }
+      
+      for (let step = 0; step < tunnelLength; step++) {
+        // Carve out 5x5x5 area (or smaller for variety)
+        const size = 2; // 5x5x5 area (-2 to +2 in each dimension)
+        
+        for (let dx = -size; dx <= size; dx++) {
+          for (let dy = -size; dy <= size; dy++) {
+            for (let dz = -size; dz <= size; dz++) {
+              const x = Math.floor(caveX + dx);
+              const y = Math.floor(caveY + dy);
+              const z = Math.floor(caveZ + dz);
+              
+              // Check bounds
+              if (x >= 0 && x < this.chunkSize && 
+                  y >= 1 && y < this.chunkSize - 1 && 
+                  z >= 0 && z < this.chunkSize) {
+                
+                const index = this.getBlockIndex(x, y, z);
+                // Only carve through stone, dirt, grass - not bedrock or surface
+                if (data[index] === BLOCK.STONE || data[index] === BLOCK.DIRT || data[index] === BLOCK.GRASS) {
+                  data[index] = BLOCK.AIR;
+                }
+              }
+            }
+          }
+        }
+        
+        // Move to next position along the path
+        caveX += directionX * (1 + Math.random() * 0.5); // Variable speed
+        caveY += directionY * (1 + Math.random() * 0.5);
+        caveZ += directionZ * (1 + Math.random() * 0.5);
+        
+        // Occasionally change direction slightly for curves
+        if (Math.random() < 0.3) {
+          directionX += (Math.random() - 0.5) * 0.3;
+          directionY += (Math.random() - 0.5) * 0.2;
+          directionZ += (Math.random() - 0.5) * 0.3;
+          
+          // Re-normalize
+          const newLength = Math.sqrt(directionX * directionX + directionY * directionY + directionZ * directionZ);
+          if (newLength > 0) {
+            directionX /= newLength;
+            directionY /= newLength;
+            directionZ /= newLength;
+          }
+        }
+      }
+    }
+  }
+
+  private generateMineshaft(data: Uint8Array, cx: number, cz: number) {
+    const startX = cx * this.chunkSize;
+    const startZ = cz * this.chunkSize;
+    
+    // Generate a simple mineshaft structure
+    const shaftX = Math.floor(this.chunkSize / 2);
+    const shaftZ = Math.floor(this.chunkSize / 2);
+    let shaftY = 10; // Start at y=10
+    
+    // Create wooden supports and ladder
+    for (let y = shaftY; y < 20; y++) {
+      // Place ladder in center
+      const ladderIndex = this.getBlockIndex(shaftX, y, shaftZ);
+      if (ladderIndex >= 0 && ladderIndex < data.length && data[ladderIndex] === BLOCK.AIR) {
+        data[ladderIndex] = BLOCK.LADDER;
+      }
+      
+      // Place wooden supports at corners of 3x3 area
+      for (let dx = -1; dx <= 1; dx += 2) { // Only -1 and 1 (corners)
+        for (let dz = -1; dz <= 1; dz += 2) {
+          const supportX = shaftX + dx;
+          const supportZ = shaftZ + dz;
+          
+          if (supportX >= 0 && supportX < this.chunkSize && 
+              supportZ >= 0 && supportZ < this.chunkSize) {
+            const supportIndex = this.getBlockIndex(supportX, y, supportZ);
+            if (supportIndex >= 0 && supportIndex < data.length && data[supportIndex] === BLOCK.AIR) {
+              data[supportIndex] = BLOCK.PLANKS; // Wooden support
+            }
+          }
+        }
+      }
+      
+      // Maybe place chest occasionally
+      if (y % 5 === 0 && Math.random() < 0.5) {
+        const chestX = shaftX + (Math.floor(Math.random() * 3) - 1);
+        const chestZ = shaftZ + (Math.floor(Math.random() * 3) - 1);
+        
+        if (chestX >= 0 && chestX < this.chunkSize && 
+            chestZ >= 0 && chestZ < this.chunkSize) {
+          const chestIndex = this.getBlockIndex(chestX, y, chestZ);
+          if (chestIndex >= 0 && chestIndex < data.length && data[chestIndex] === BLOCK.AIR) {
+            data[chestIndex] = BLOCK.CHEST;
+          }
+        }
+      }
+    }
   }
 
   private generateChunkMesh(data: Uint8Array, cx: number, cz: number): THREE.Mesh {
