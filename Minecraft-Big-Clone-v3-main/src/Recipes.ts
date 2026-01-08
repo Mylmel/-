@@ -106,5 +106,184 @@ export const RECIPES: Recipe[] = [
             "S"
         ],
         keys: { "C": BLOCK.STONE, "S": BLOCK.STICK }
+    },
+    // --- TOOLS (Copper) ---
+    {
+        result: { id: BLOCK.COPPER_PICKAXE, count: 1 },
+        pattern: [
+            "III",
+            " S ",
+            " S "
+        ],
+        keys: { "I": BLOCK.COPPER_INGOT, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.COPPER_AXE, count: 1 },
+        pattern: [
+            "II",
+            "IS",
+            " S"
+        ],
+        keys: { "I": BLOCK.COPPER_INGOT, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.COPPER_SWORD, count: 1 },
+        pattern: [
+            "I",
+            "I",
+            "S"
+        ],
+        keys: { "I": BLOCK.COPPER_INGOT, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.COPPER_SHOVEL, count: 1 },
+        pattern: [
+            "I",
+            "S",
+            "S"
+        ],
+        keys: { "I": BLOCK.COPPER_INGOT, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.COPPER_HOE, count: 1 },
+        pattern: [
+            "II",
+            " S",
+            " S"
+        ],
+        keys: { "I": BLOCK.COPPER_INGOT, "S": BLOCK.STICK }
+    },
+    // --- TOOLS (Iron) ---
+    {
+        result: { id: BLOCK.IRON_PICKAXE, count: 1 },
+        pattern: [
+            "III",
+            " S ",
+            " S "
+        ],
+        keys: { "I": BLOCK.IRON_INGOT, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.IRON_AXE, count: 1 },
+        pattern: [
+            "II",
+            "IS",
+            " S"
+        ],
+        keys: { "I": BLOCK.IRON_INGOT, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.IRON_SWORD, count: 1 },
+        pattern: [
+            "I",
+            "I",
+            "S"
+        ],
+        keys: { "I": BLOCK.IRON_INGOT, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.IRON_SHOVEL, count: 1 },
+        pattern: [
+            "I",
+            "S",
+            "S"
+        ],
+        keys: { "I": BLOCK.IRON_INGOT, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.IRON_HOE, count: 1 },
+        pattern: [
+            "II",
+            " S",
+            " S"
+        ],
+        keys: { "I": BLOCK.IRON_INGOT, "S": BLOCK.STICK }
+    },
+    // --- TOOLS (Diamond) ---
+    {
+        result: { id: BLOCK.DIAMOND_PICKAXE, count: 1 },
+        pattern: [
+            "DDD",
+            " S ",
+            " S "
+        ],
+        keys: { "D": BLOCK.DIAMOND, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.DIAMOND_AXE, count: 1 },
+        pattern: [
+            "DD",
+            "DS",
+            " S"
+        ],
+        keys: { "D": BLOCK.DIAMOND, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.DIAMOND_SWORD, count: 1 },
+        pattern: [
+            "D",
+            "D",
+            "S"
+        ],
+        keys: { "D": BLOCK.DIAMOND, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.DIAMOND_SHOVEL, count: 1 },
+        pattern: [
+            "D",
+            "S",
+            "S"
+        ],
+        keys: { "D": BLOCK.DIAMOND, "S": BLOCK.STICK }
+    },
+    {
+        result: { id: BLOCK.DIAMOND_HOE, count: 1 },
+        pattern: [
+            "DD",
+            " S",
+            " S"
+        ],
+        keys: { "D": BLOCK.DIAMOND, "S": BLOCK.STICK }
+    },
+    // --- New Blocks ---
+    {
+        result: { id: BLOCK.CHEST, count: 1 },
+        pattern: [
+            "PPP",
+            "P P",
+            "PPP"
+        ],
+        keys: { "P": BLOCK.PLANKS }
+    },
+    {
+        result: { id: BLOCK.FURNACE, count: 1 },
+        pattern: [
+            "SSS",
+            "S S",
+            "SSS"
+        ],
+        keys: { "S": BLOCK.STONE }
+    },
+    {
+        result: { id: BLOCK.LADDER, count: 3 },
+        pattern: [
+            "S S",
+            "SSS",
+            "S S"
+        ],
+        keys: { "S": BLOCK.STICK }
+    },
+    // --- Smelting Recipes (in furnace) ---
+    {
+        result: { id: BLOCK.IRON_INGOT, count: 1 },
+        ingredients: [{ id: BLOCK.IRON_ORE, count: 1 }, { id: BLOCK.COAL, count: 1 }]
+    },
+    {
+        result: { id: BLOCK.COPPER_INGOT, count: 1 },
+        ingredients: [{ id: BLOCK.COPPER_ORE, count: 1 }, { id: BLOCK.COAL, count: 1 }]
+    },
+    {
+        result: { id: BLOCK.COBBLESTONE, count: 1 },
+        ingredients: [{ id: BLOCK.STONE, count: 1 }, { id: BLOCK.COAL, count: 1 }]
     }
 ];

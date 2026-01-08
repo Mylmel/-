@@ -37,6 +37,27 @@ function initToolTextures() {
         TOOL_TEXTURES[BLOCK.WOODEN_SHOVEL] = generateToolTexture(TOOL_DEFS.WOODEN_SHOVEL.pattern, TOOL_DEFS.WOODEN_SHOVEL.color);
         TOOL_TEXTURES[BLOCK.STONE_SHOVEL] = generateToolTexture(TOOL_DEFS.STONE_SHOVEL.pattern, TOOL_DEFS.STONE_SHOVEL.color);
         
+        // Copper tools
+        TOOL_TEXTURES[BLOCK.COPPER_SWORD] = generateToolTexture(TOOL_DEFS.COPPER_SWORD.pattern, TOOL_DEFS.COPPER_SWORD.color);
+        TOOL_TEXTURES[BLOCK.COPPER_PICKAXE] = generateToolTexture(TOOL_DEFS.COPPER_PICKAXE.pattern, TOOL_DEFS.COPPER_PICKAXE.color);
+        TOOL_TEXTURES[BLOCK.COPPER_AXE] = generateToolTexture(TOOL_DEFS.COPPER_AXE.pattern, TOOL_DEFS.COPPER_AXE.color);
+        TOOL_TEXTURES[BLOCK.COPPER_SHOVEL] = generateToolTexture(TOOL_DEFS.COPPER_SHOVEL.pattern, TOOL_DEFS.COPPER_SHOVEL.color);
+        TOOL_TEXTURES[BLOCK.COPPER_HOE] = generateToolTexture(TOOL_DEFS.COPPER_HOE.pattern, TOOL_DEFS.COPPER_HOE.color);
+        
+        // Iron tools
+        TOOL_TEXTURES[BLOCK.IRON_SWORD] = generateToolTexture(TOOL_DEFS.IRON_SWORD.pattern, TOOL_DEFS.IRON_SWORD.color);
+        TOOL_TEXTURES[BLOCK.IRON_PICKAXE] = generateToolTexture(TOOL_DEFS.IRON_PICKAXE.pattern, TOOL_DEFS.IRON_PICKAXE.color);
+        TOOL_TEXTURES[BLOCK.IRON_AXE] = generateToolTexture(TOOL_DEFS.IRON_AXE.pattern, TOOL_DEFS.IRON_AXE.color);
+        TOOL_TEXTURES[BLOCK.IRON_SHOVEL] = generateToolTexture(TOOL_DEFS.IRON_SHOVEL.pattern, TOOL_DEFS.IRON_SHOVEL.color);
+        TOOL_TEXTURES[BLOCK.IRON_HOE] = generateToolTexture(TOOL_DEFS.IRON_HOE.pattern, TOOL_DEFS.IRON_HOE.color);
+        
+        // Diamond tools
+        TOOL_TEXTURES[BLOCK.DIAMOND_SWORD] = generateToolTexture(TOOL_DEFS.DIAMOND_SWORD.pattern, TOOL_DEFS.DIAMOND_SWORD.color);
+        TOOL_TEXTURES[BLOCK.DIAMOND_PICKAXE] = generateToolTexture(TOOL_DEFS.DIAMOND_PICKAXE.pattern, TOOL_DEFS.DIAMOND_PICKAXE.color);
+        TOOL_TEXTURES[BLOCK.DIAMOND_AXE] = generateToolTexture(TOOL_DEFS.DIAMOND_AXE.pattern, TOOL_DEFS.DIAMOND_AXE.color);
+        TOOL_TEXTURES[BLOCK.DIAMOND_SHOVEL] = generateToolTexture(TOOL_DEFS.DIAMOND_SHOVEL.pattern, TOOL_DEFS.DIAMOND_SHOVEL.color);
+        TOOL_TEXTURES[BLOCK.DIAMOND_HOE] = generateToolTexture(TOOL_DEFS.DIAMOND_HOE.pattern, TOOL_DEFS.DIAMOND_HOE.color);
+        
         // Generate Crafting Table Icon
         if (BLOCK_DEFS.CRAFTING_TABLE_TOP && BLOCK_DEFS.CRAFTING_TABLE_TOP.pattern && BLOCK_DEFS.CRAFTING_TABLE_TOP.colors) {
             TOOL_TEXTURES[BLOCK.CRAFTING_TABLE] = generateBlockIcon(
@@ -214,6 +235,16 @@ const BLOCK_NAMES: Record<number, string> = {
   7: 'Доски',
   8: 'Палка',
   9: 'Верстак',
+  10: 'Угольная руда',
+  11: 'Медная руда',
+  12: 'Железная руда',
+  13: 'Алмазная руда',
+  14: 'Редстоун руда',
+  15: 'Лазуритовая руда',
+  16: 'Блок меди',
+  17: 'Блок железа',
+  18: 'Блок алмаза',
+  19: 'Блок угля',
   20: 'Деревянный меч',
   21: 'Каменный меч',
   22: 'Деревянная кирка',
@@ -221,7 +252,34 @@ const BLOCK_NAMES: Record<number, string> = {
   24: 'Деревянный топор',
   25: 'Каменный топор',
   26: 'Деревянная лопата',
-  27: 'Каменная лопата'
+  27: 'Каменная лопата',
+  28: 'Медный меч',
+  29: 'Медная кирка',
+  30: 'Медный топор',
+  31: 'Медная лопата',
+  32: 'Медная мотыга',
+  33: 'Железный меч',
+  34: 'Железная кирка',
+  35: 'Железный топор',
+  36: 'Железная лопата',
+  37: 'Железная мотыга',
+  38: 'Алмазный меч',
+  39: 'Алмазная кирка',
+  40: 'Алмазный топор',
+  41: 'Алмазная лопата',
+  42: 'Алмазная мотыга',
+  43: 'Сундук',
+  44: 'Печка',
+  45: 'Лестница',
+  46: 'Булыжник',
+  47: 'Строительные леса',
+  48: 'Медный слиток',
+  49: 'Железный слиток',
+  50: 'Алмаз',
+  51: 'Уголь',
+  52: 'Редстоун',
+  53: 'Лазурит',
+  54: 'Ножницы'
 };
 
 // Inventory State
@@ -312,6 +370,16 @@ function handleCommand(cmd: string) {
             'planks': 7,
             'stick': 8,
             'crafting_table': 9,
+            'coal_ore': 10,
+            'copper_ore': 11,
+            'iron_ore': 12,
+            'diamond_ore': 13,
+            'redstone_ore': 14,
+            'lapis_ore': 15,
+            'copper_block': 16,
+            'iron_block': 17,
+            'diamond_block': 18,
+            'coal_block': 19,
             'wooden_sword': 20,
             'stone_sword': 21,
             'wooden_pickaxe': 22,
@@ -319,7 +387,34 @@ function handleCommand(cmd: string) {
             'wooden_axe': 24,
             'stone_axe': 25,
             'wooden_shovel': 26,
-            'stone_shovel': 27
+            'stone_shovel': 27,
+            'copper_sword': 28,
+            'copper_pickaxe': 29,
+            'copper_axe': 30,
+            'copper_shovel': 31,
+            'copper_hoe': 32,
+            'iron_sword': 33,
+            'iron_pickaxe': 34,
+            'iron_axe': 35,
+            'iron_shovel': 36,
+            'iron_hoe': 37,
+            'diamond_sword': 38,
+            'diamond_pickaxe': 39,
+            'diamond_axe': 40,
+            'diamond_shovel': 41,
+            'diamond_hoe': 42,
+            'chest': 43,
+            'furnace': 44,
+            'ladder': 45,
+            'cobblestone': 46,
+            'scaffolding': 47,
+            'copper_ingot': 48,
+            'iron_ingot': 49,
+            'diamond': 50,
+            'coal': 51,
+            'redstone': 52,
+            'lapis_lazuli': 53,
+            'scissors': 54
         };
 
         if (ITEM_MAP[itemName]) {
@@ -398,7 +493,21 @@ function getBlockColor(id: number) {
   if (id === 7) return '#C29A6B';
   if (id === 8) return '#654321';
   if (id === 9) return '#a05a2b'; // Crafting Table
-  if (id >= 20) return 'transparent';
+  if (id === 10) return '#708090'; // Coal Ore
+  if (id === 11) return '#B87333'; // Copper Ore
+  if (id === 12) return '#FFD700'; // Iron Ore
+  if (id === 13) return '#00BFFF'; // Diamond Ore
+  if (id === 14) return '#DC143C'; // Redstone Ore
+  if (id === 15) return '#1E90FF'; // Lapis Ore
+  if (id === 16) return '#B87333'; // Copper Block
+  if (id === 17) return '#FFD700'; // Iron Block
+  if (id === 18) return '#00BFFF'; // Diamond Block
+  if (id === 19) return '#708090'; // Coal Block
+  if (id === 43) return '#8B4513'; // Chest
+  if (id === 44) return '#808080'; // Furnace
+  if (id === 45) return '#A9A9A9'; // Ladder
+  if (id === 46) return '#696969'; // Cobblestone
+  if (id >= 20 && id <= 54) return 'transparent'; // Tools and materials
   return '#fff';
 }
 

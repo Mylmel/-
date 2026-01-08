@@ -103,7 +103,10 @@ const STICK_PATTERN = [
 const COLORS = {
     HANDLE: '#5C4033', // Dark Brown
     WOOD: '#8B5A2B',   // Wood Planks Color
-    STONE: '#7d7d7d'   // Stone Color
+    STONE: '#7d7d7d',  // Stone Color
+    COPPER: '#B87333', // Copper Color
+    IRON: '#C0C0C0',   // Iron Color
+    DIAMOND: '#00FFFF' // Diamond Color
 };
 
 export interface GeneratedTexture {
@@ -192,6 +195,26 @@ export function generateBlockIcon(pattern: string[], colors: { primary: string, 
     return { texture, dataUrl };
 }
 
+// Hoe pattern
+const HOE_PATTERN = [
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+    "0000000000000000",
+];
+
 // Pre-generate definitions
 export const TOOL_DEFS = {
     STICK: { pattern: STICK_PATTERN, color: COLORS.HANDLE }, // Stick is handle material
@@ -203,4 +226,22 @@ export const TOOL_DEFS = {
     STONE_AXE: { pattern: AXE_PATTERN, color: COLORS.STONE },
     WOODEN_SHOVEL: { pattern: SHOVEL_PATTERN, color: COLORS.WOOD },
     STONE_SHOVEL: { pattern: SHOVEL_PATTERN, color: COLORS.STONE },
+    // Copper tools
+    COPPER_SWORD: { pattern: SWORD_PATTERN, color: COLORS.COPPER },
+    COPPER_PICKAXE: { pattern: PICKAXE_PATTERN, color: COLORS.COPPER },
+    COPPER_AXE: { pattern: AXE_PATTERN, color: COLORS.COPPER },
+    COPPER_SHOVEL: { pattern: SHOVEL_PATTERN, color: COLORS.COPPER },
+    COPPER_HOE: { pattern: HOE_PATTERN, color: COLORS.COPPER },
+    // Iron tools
+    IRON_SWORD: { pattern: SWORD_PATTERN, color: COLORS.IRON },
+    IRON_PICKAXE: { pattern: PICKAXE_PATTERN, color: COLORS.IRON },
+    IRON_AXE: { pattern: AXE_PATTERN, color: COLORS.IRON },
+    IRON_SHOVEL: { pattern: SHOVEL_PATTERN, color: COLORS.IRON },
+    IRON_HOE: { pattern: HOE_PATTERN, color: COLORS.IRON },
+    // Diamond tools
+    DIAMOND_SWORD: { pattern: SWORD_PATTERN, color: COLORS.DIAMOND },
+    DIAMOND_PICKAXE: { pattern: PICKAXE_PATTERN, color: COLORS.DIAMOND },
+    DIAMOND_AXE: { pattern: AXE_PATTERN, color: COLORS.DIAMOND },
+    DIAMOND_SHOVEL: { pattern: SHOVEL_PATTERN, color: COLORS.DIAMOND },
+    DIAMOND_HOE: { pattern: HOE_PATTERN, color: COLORS.DIAMOND },
 };
